@@ -1,6 +1,6 @@
-const sql = require('../database')
+const sql = require('../connexion/database')
 
-const Animal = (animal) => {
+const Animal = function (animal) {
     this.espece = animal.espece
     this.sexe = animal.sexe
     this.date_naissance = animal.date_naissance
@@ -10,21 +10,21 @@ const Animal = (animal) => {
 
 
 Animal.create = (newAnimal, result) => {
-    sql.query("INSERT INTO animal SET ? ", newAnimal, (err, res) => {
+    sql.query("INSERT INTO Animal SET ? ", newAnimal, (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(err, null)
             return
         }
 
-        console.log("Created animal: ", { id: res.insertId, ...newAnimal})
+        console.log("Created Animal: ", { id: res.insertId, ...newAnimal})
         result(null, { id: res.insertId, ...newAnimal})
     }
     )
 }
 
 Animal.findById = (animalId, result) => {
-    sql.query(`SELECT * FROM animal WHERE id = ${animalId}`, (err, res) => {
+    sql.query(`SELECT * FROM Animal WHERE id = ${animalId}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -32,7 +32,7 @@ Animal.findById = (animalId, result) => {
       }
   
       if (res.length) {
-        console.log("found animal: ", res[0]);
+        console.log("found Animal: ", res[0]);
         result(null, res[0]);
         return;
       }
@@ -43,7 +43,7 @@ Animal.findById = (animalId, result) => {
   };
   
   Animal.getAll = result => {
-    sql.query("SELECT * FROM animal", (err, res) => {
+    sql.query("SELECT * FROM Animal", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -72,14 +72,14 @@ Animal.findById = (animalId, result) => {
           return;
         }
   
-        console.log("updated animal: ", { id: id, ...animal });
+        console.log("updated Animal: ", { id: id, ...animal });
         result(null, { id: id, ...animal });
       }
     );
   };
   
   Animal.remove = (id, result) => {
-    sql.query("DELETE FROM animal WHERE id = ?", id, (err, res) => {
+    sql.query("DELETE FROM Animal WHERE id = ?", id, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -98,7 +98,7 @@ Animal.findById = (animalId, result) => {
   };
   
   Animal.removeAll = result => {
-    sql.query("DELETE FROM animal", (err, res) => {
+    sql.query("DELETE FROM Animal", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

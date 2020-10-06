@@ -6,9 +6,9 @@ const animalController = require('../controller/animalControllers')
 
 router.post('/animal', animalController.create)
 
-router.get('/animal', animalController.findOne)
+router.get('/animal/:id', animalController.findOne)
 
-router.get('/animal:id', animalController.findAll)
+router.get('/animal', animalController.findAll)
 
 router.put('/animal', animalController.update)
 

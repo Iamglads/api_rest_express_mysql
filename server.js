@@ -1,3 +1,5 @@
+// basic server 
+
 const express = require('express')
 const bodyParser = require('body-parser')
 
@@ -10,10 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true}))
 
 // route 
 app.get('/', (req, res, next) => {
-    res.json({ message: "Api with Express & mysql"})
+    res.json({ message: "Api with Node Express & mysql"})
 })
 
-app.use('/', animalRoutes)
+app.use('/api', animalRoutes)
 
 const PORT = 4000
 
